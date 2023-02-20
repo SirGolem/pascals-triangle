@@ -7,7 +7,10 @@
         "start": "node index.js",
         "build": "pkg index.js"
     },
-    "keywords": [],
+    "keywords": [
+        "maths",
+        "pascals-triangle"
+    ],
     "author": "SirGolem",
     "license": "ISC",
     "dependencies": {
