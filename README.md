@@ -7,5 +7,7 @@ Made by SirGolem
 ## Usage
 
 Start (executable/without flag): `npm start`
+
 Start (source/with flag): `node index.js -r <rows>` or `node index.js --rows <rows>`
+
 Build (source): `npm run build`
