@@ -1,16 +1,17 @@
 {
     "name": "pascals-triangle",
     "version": "1.0.0",
-    "description": "",
+    "description": "A simple Node.js program to generate *x* rows of Pascal's Triangle.",
     "main": "index.js",
     "scripts": {
         "start": "node index.js",
         "build": "pkg index.js"
     },
     "keywords": [],
-    "author": "",
+    "author": "SirGolem",
     "license": "ISC",
     "dependencies": {
+        "commander": "^10.0.0",
         "pkg": "^5.8.0"
     }
 }
