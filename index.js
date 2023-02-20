@@ -1,30 +1,55 @@
 const fs = require('node:fs');
 const path = require('node:path');
+const { program } = require('commander');
 
-// Open input and get row count
-const stdin = process.openStdin();
+// Set up program option flags
+program.option('-r, --rows <rows>', 'how many rows to calculate');
+program.parse();
+const options = program.opts();
 
-console.log('How many rows should be generated?');
+// Handle input/flags and calculate
+if (options.rows) {
+    const isValid = validateInput(options.rows);
 
-stdin.addListener('data', function (rawInput) {
-    const input = rawInput.toString();
+    if (isValid) calculate(options.rows);
+} else {
+    // Open input and get row count
+    const stdin = process.openStdin();
 
+    console.log('How many rows should be generated?');
+
+    stdin.addListener('data', function (rawInput) {
+        const input = rawInput.toString();
+
+        const isValid = validateInput(input);
+
+        if (isValid) {
+            stdin.pause();
+            calculate(parseInt(input));
+        }
+    });
+}
+
+// Validate row number input
+function validateInput(input) {
     if (isNaN(input)) {
-        return console.log('Invalid number.');
+        console.log('Invalid number.');
+        return false;
     }
 
     const rowsFloat = parseFloat(input);
     if (!Number.isInteger(rowsFloat) || !Number.isSafeInteger(rowsFloat) || rowsFloat <= 0) {
-        return console.log('Invalid number.');
+        console.log('Invalid number.');
+        return false;
     }
 
-    stdin.pause();
-    calculate(parseInt(input));
-});
+    return true;
+}
 
+// Calculate Pascal's Triangle
 function calculate(rows) {
     // Create output file
-    const fileName = `output-${Date.now()}.txt`;
+    const fileName = `pascals-triangle-output-${Date.now()}.txt`;
 
     fs.writeFileSync(fileName, `Pascal's Triangle (${rows} rows)\n`);
 
